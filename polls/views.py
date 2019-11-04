@@ -1,10 +1,14 @@
 from django.http import HttpResponse
+from django.shortcuts import render
+from django.template import loader
 from .models import UserData
 
 def index(request):
     userData_list = UserData.objects.all()
-    output = ', '.join([q.nom_text for q in userData_list])
-    return HttpResponse(output)
+    context = {
+        'userData_list': userData_list,
+    }
+    return render(request, 'polls/index.html', context)
 def detail(request, question_id):
     return HttpResponse("You're looking at question %s." % question_id)
 
