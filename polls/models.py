@@ -11,6 +11,5 @@ class UserData(models.Model):
     passeport_text = models.CharField(max_length=20)
     startprocess_date = models.DateTimeField('processdata')
     endprocess_date = models.DateTimeField('endprocessdata')
-    endprocess_date = models.DateTimeField('endprocessdata')
     state_int = models.IntegerField()
     notifytele_text = models.CharField(max_length=20)

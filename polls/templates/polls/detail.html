@@ -1,1 +1,5 @@
-{{ userdata }}
+
+<form action="{% url 'polls:vote' userdata.id %}" method="post">
+{% csrf_token %}
+<input type="submit" value="Vote">
+</form>

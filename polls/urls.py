@@ -10,5 +10,6 @@ urlpatterns = [
     # ex: /polls/5/results/
     path('<int:question_id>/results/', views.results, name='results'),
     # ex: /polls/5/vote/
-    path('<int:question_id>/getRecap/', views.getRecap, name='getRecap'),
+    path('<int:id>/vote/', views.vote, name='vote'),
+    path('<int:id>/getRecap/', views.getRecap, name='getRecap'),
 ]
