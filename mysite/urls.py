@@ -19,4 +19,6 @@ from django.urls import include,path
 urlpatterns = [
     path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
+    path('django-sb-admin/', include('django_sb_admin.urls')),
 ]
+ 

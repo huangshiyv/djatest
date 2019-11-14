@@ -8,7 +8,7 @@ class UserData(models.Model):
     prenom_text = models.CharField(max_length=20)
     tele_text = models.CharField(max_length=20)
     email_text = models.EmailField(max_length=50)
-    passeport_text = models.CharField(max_length=20)
+    passeport_text = models.CharField(max_length=20, unique=True)
     startprocess_date = models.DateTimeField('processdata')
     endprocess_date = models.DateTimeField('endprocessdata')
     state_int = models.IntegerField()

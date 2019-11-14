@@ -1,17 +1,134 @@
-{% if userData_list %}
+{% extends "django_sb_admin/base.html" %}{% load static %}
+{% block sb_admin_custom_css %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 
-    <ul>
 
-        {% for question in userData_list %}
+{% endblock sb_admin_custom_css %}
 
-                <li><a href="{% url 'polls:detail' question.id %}">{{ question.id }}</a></li>
+{% block sb_admin_sidebar %}
 
-                    {% endfor %}
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+  <ul class="nav navbar-nav side-nav">
+    <li {% if nav_active == "dashboard" %}class="active" {% endif %}>
+      <a href="{% url "polls:index" %}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+    </li>
 
-                        </ul>
+    <li {% if nav_active == "blank" %}class="active" {% endif %}>
+      <a href="{% url "sb_admin_blank" %}"><i class="fa fa-fw fa-file"></i> Blank</a>
+    </li>
+  </ul>
+</div>
 
-                        {% else %}
+{% endblock sb_admin_sidebar %}
 
-                            <p>No polls are available.</p>
 
-                            {% endif %}
+{% block sb_admin_header %}Admin{% endblock sb_admin_header %}
+{% block sb_admin_title %}Huang{% endblock sb_admin_title %}
+{% block sb_admin_subheading %}<small>Subheading</small>{% endblock sb_admin_subheading %}
+{% block sb_admin_breadcrumb %}<i class="fa fa-dashboard"></i> <a
+  href="index.html">Dashboard</a>{% endblock sb_admin_breadcrumb %}
+{% block sb_admin_breadcrumb_active %}<li class="active">
+  <i class="fa fa-file""></i> Blank page
+ </li>{% endblock sb_admin_breadcrumb_active %}
+
+{% block sb_admin_navbar_right %}<!-- right top navbar -->{% endblock sb_admin_navbar_right %}
+
+
+
+{% block sb_admin_content %}
+
+<form action=" {% url "polls:upload_csv" %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="name" class="col-md-3 col-sm-3 col-xs-12 control-label">File: </label>
+      <div class="col-md-8">
+        <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3" style="margin-bottom:10px;">
+        <button class="btn btn-primary"> <span class="glyphicon glyphicon-upload"
+            style="margin-right:5px;"></span>Upload</button>
+      </div>
+    </div>
+    </form>
+
+
+    <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Prenom</th>
+          <th>tele</th>
+          <th>notifyTele</th>
+          <th>Import data</th>
+          <th>statue</th>
+          <th>statue</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if userData_list %}
+        {% for user in userData_list %}
+        <tr>
+          <td>{{user.id}}</td>
+          <td>{{user.nom_text}}</td>
+          <td>{{user.prenom_text}}</td>
+          <td>{{user.tele_text}}</td>
+          <td>{{user.tele_text}}</td>
+          <td>{{user.endprocess_date}}</td>
+          <td>{{user.state_int}}</td>
+          <th><a href="{% url 'polls:index' %}"><img height="16" width="16" src="../../static/images/play-button.svg"></a></th>
+        </tr>
+        {% endfor %}
+        {% else %}
+
+        <p>No user are available.</p>
+
+        {% endif %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Prenom</th>
+          <th>tele</th>
+          <th>notifyTele</th>
+          <th>Import data</th>
+          <th>statue</th>
+          <th>statue</th>
+        </tr>
+      </tfoot>
+    </table>
+    <table border="0" cellpadding="0" cellspacing="0">
+      <tbody>
+        <tr>
+          <td class="gutter">
+            <div class="line number1 index0 alt2" style="display: none;">1</div>
+          </td>
+          <td class="code">
+            <div class="container" style="display: none;">
+              <div class="line number1 index0 alt2" style="display: none;">&nbsp;</div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+    {% endblock sb_admin_content %}
+
+
+
+    {% block sb_admin_custom_js %}
+    <script type="text/javascript" charset="utf8"
+      src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#dataTable').DataTable();
+      });
+    </script>
+    {% endblock sb_admin_custom_js %}

@@ -12,4 +12,5 @@ urlpatterns = [
     # ex: /polls/5/vote/
     path('<int:id>/vote/', views.vote, name='vote'),
     path('<int:id>/getRecap/', views.getRecap, name='getRecap'),
+    path('upload/csv/', views.upload_csv, name='upload_csv'),
 ]
